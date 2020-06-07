@@ -40,25 +40,6 @@ Actualizado por Bujalance García Juan Antonio // 2020
 			{{form_row(form.tagParametrizacionGrupos)}}
 		</div>
 
-		{# <h3>Tags</h3>
-		    <ul class="tags">
-		        {% for tag in form.tags %}
-		            <li>{{ form_row(tag.name) }}</li>
-		        {% endfor %}
-		    </ul> #}
-
-		{# {{ dump(form) }}#}
-
-		<div class="col s6 m4 offset-m4" id="eventos">
-			{{form_label(form.evento, 'Seleccione el evento asociado a la noticia')}}
-			{{form_widget(form.evento)}}
-		</div>
-
-
-		{#  <div class="col s6 offset-m3" id="profesor">
-					                   {{form_row(form.idProfesor)}}
-					            </div>#}
-
 		<div class="col s12 m8 offset-m2">
 			{{form_row(form.codigoEmbebido)}}
 			<script>

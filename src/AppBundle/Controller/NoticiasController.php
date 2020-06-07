@@ -64,7 +64,6 @@ class NoticiasController extends Controller
     {
         $entityManager = $this->getDoctrine()->getManager();
         $noticia = new NoticiasV2();
-        $evento = new Noticias_eventos();
 
         $form = $this->createForm(NoticiasV2Type::class, $noticia);
         //$formEvento = $this->createForm(Noticias_eventosType::class, $evento);
@@ -79,7 +78,6 @@ class NoticiasController extends Controller
             $noticia->setNumeroPublicaciones(0);
             $noticia->setCreatedAt(new \DateTime());
             $noticia->setUpdatedAt(new \DateTime());
-            $evento->setIdNoticias($noticia->getId());
             //$evento->setIdNoticias($noticia->getId());
             //$entityManager->persist($evento);
 

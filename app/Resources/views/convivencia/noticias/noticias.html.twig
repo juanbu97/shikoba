@@ -54,6 +54,10 @@ Actualizado por GUBS, RAGZ, 2019
 						<a href="{{ path('publicacion', {'id': noticia.id})}}" class="btn z-depth-3 blue darken-3 waves-effect waves-light" title="Publicar">Publicar<i class="material-icons right" style="margin-top: -2%;">send</i>
 						</a>
 					</div>
+					<div class="row">
+						<a href="{{ path('eventos', {'id': noticia.id})}}" class="btn z-depth-3 blue darken-3 waves-effect waves-light" title="Publicar">Eventos<i class="material-icons right" style="margin-top: -2%;">insert_invitation</i>
+						</a>
+					</div>
 					<div style="padding: 2%">
 						<p id="noticiatd" id="texto">{{ noticia.codigoEmbebido|raw }}</p>
 					</div>
