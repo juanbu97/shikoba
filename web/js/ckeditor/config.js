@@ -6,6 +6,7 @@
 CKEDITOR.editorConfig = function (config) {
     config.language = 'es';
     config.uiColor = '#2e7ed7';
+    config.allowedContent = true;
     config.toolbarGroups = [
         {name: 'clipboard', groups: ['clipboard', 'undo']},
         {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},

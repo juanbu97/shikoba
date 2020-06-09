@@ -10,4 +10,14 @@ namespace AppBundle\Repository;
  */
 class EventosRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getAllEventos(){
+        return $this->getEntityManager()
+        ->createQueryBuilder()
+        ->select('a')
+        ->from('AppBundle:Eventos', 'a')
+        ->getQuery()
+        ->getResult();
+    }
+
 }

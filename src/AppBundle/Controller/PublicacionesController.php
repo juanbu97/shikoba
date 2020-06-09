@@ -11,6 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Exception;
+
 
 class PublicacionesController extends Controller
 {
@@ -149,4 +151,43 @@ class PublicacionesController extends Controller
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * Permite borrar una noticia.
+     * @Route("/publicaciones/borrarPublicacion/{id}", name="publicaciones_borrar")
+     * @Method({"GET", "POST"})
+     * @param Publicaciones $noticia la noticia a borrar
+     * @throws Exception
+     * @return Response la vista a renderizar
+     */
+    public function deletePublicacion(Publicaciones $publicacion2){
+
+        $em = $this->getDoctrine()->getManager();
+        try {
+            $em->remove($publicacion2);
+            $em->flush();
+            $this->addFlash('publicacion', 'Publicacion eliminada correctamente');
+        } catch (Exception $e) {
+            $this->addFlash('publicacionError', 'No se ha podido eliminar la publicacion');
+        }
+
+        return $this->redirectToRoute('noticias');
+
+    }
+    
+    
+    /*public function deletePublicacion(Publicaciones $publicacion)
+    {
+        try {
+            
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($publicacion);
+            $em->flush();
+            $this->addFlash('publicacion', 'Publicación eliminada correctamente');
+        } catch (Exception $e) {
+            $this->addFlash('publicacionError', 'No se ha podido eliminar la publicación');
+        }
+
+        return $this->redirectToRoute('noticias');
+    } */
 }

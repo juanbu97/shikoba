@@ -10,6 +10,7 @@
 namespace AppBundle\Twig\Extension;
 
 use Twig_SimpleFunction;
+use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
  * Class FileExtension.
@@ -35,4 +36,30 @@ class FileExtension
     {
         return 'twig_extension';
     }
+
+    /**
+     * Funcion que devuelve true o false
+     *
+     * @return boolean
+     */
+    public function isPublished($id)
+    {
+        $em = $this->doctrine->getManager();
+
+        $banderaPubl = false;
+        $query = $em->createQuery(
+            'SELECT publicaciones
+             FROM AppBundle\Entity\Publicaciones publicaciones
+             where publicaciones.idNoticia = :id'
+        );
+        $query->setParameter(':id', $id);
+
+        if (sizeof($query->getResult())>0) {
+            $banderaPubl = true;
+        }
+
+        return $banderaPubl;
+    }
+
+    
 }

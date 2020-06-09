@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\Publicaciones;
+
 /**
  * PublicacionesRepository
  *
@@ -10,4 +12,7 @@ namespace AppBundle\Repository;
  */
 class PublicacionesRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
+    
 }

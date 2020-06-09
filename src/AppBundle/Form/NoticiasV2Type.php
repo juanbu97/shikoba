@@ -96,22 +96,7 @@ class NoticiasV2Type extends AbstractType
                 ],
 
                 'label' => 'Codigo Embebido'
-            ])
-            ->add('evento', Noticias_eventosType::class, [
-                'mapped' => false,
             ]);
-            /* ->add('idProfesor', EntityType::class, [
-                'class' => Profesores::class,
-                'required' => true,
-                'choice_value' => function (?Profesores $profesores) {
-                    return $profesores ? $profesores->getId() : '';
-                },
-                'attr' => [
-                    'class' => 'browser-default',
-                ]
-            ]); */
-        
-            
         }
 
     /**

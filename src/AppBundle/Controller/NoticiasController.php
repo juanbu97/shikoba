@@ -131,40 +131,41 @@ class NoticiasController extends Controller
      */
     public function editNoticia(NoticiasV2 $noticia, Request $request)
     {
-        //$id = $noticia->getId();
+
+        $id = $noticia->getId();
+        
+        $form = $this->createForm(NoticiasV2Type::class, $noticia);
 
         /** @var EntityManager $em */
-        //$em = $this->getDoctrine()->getManager();
-
-        /** @var CursosRepository $repositoryACursos */
-        //$repositoryACursos = $em->getRepository('AppBundle:Cursos');
+        $em = $this->getDoctrine()->getManager();
 
         /** @var NoticiasRepository $repositoryNoticias */
-        // $repositoryNoticias = $em->getRepository('AppBundle:Noticias');
+        $repositoryNoticias = $em->getRepository('AppBundle:NoticiasV2');
+        
+        $form->handleRequest($request);
 
-        /** @var Cursos $cursos */
-        //$cursos = $repositoryACursos->getCursosGroupByCursos2();
+        if($form->isSubmitted() && $form->isValid()){
 
-        //$noticia = $repositoryNoticias->getNoticia($id);
-        /* 
-        if (!empty($request->query->get('fechaFinal')) && !empty($request->query->get('puntos'))
-            && !empty($request->query->get('cursos'))) {
-            $fechaF = DateTime::createFromFormat('d/m/Y', $request->get('fechaFinal'));
-            $fechaI = DateTime::createFromFormat('d/m/Y', $request->get('fechaInicio'));
-            $puntos = $request->query->get('puntos');
-            $curso = $request->query->get('cursos');
-            $editor1 = $request->query->get('editor1');
+            $titulo = $form->get('titulo')->getViewData();
+            $descripcion = $form->get('descripcion')->getViewData();
+            $codigo_embebido = $form->get('codigoEmbebido')->getViewData();
+            $tag_paremetrizacion_cursos = $form->get('tagParametrizacionCursos')->getViewData();
+            $tag_paremetrizacion_grupos = $form->get('tagParametrizacionGrupos')->getViewData();
+            $tag_paremetrizacion_categorias = $form->get('tagParametrizacionCategorias')->getViewData();
+            $tag_paremetrizacion_valores = $form->get('tagParametrizacionValores')->getViewData();
+            $tag_paremetrizacion_puntos = $form->get('tagParametrizacionPuntos')->getViewData();
 
-            $repositoryNoticias->updateNoticias($id, $curso, $puntos, $fechaI, $fechaF, $editor1);
+            $repositoryNoticias->updateNoticias($id, $titulo, $descripcion, $codigo_embebido, $tag_paremetrizacion_valores,
+            $tag_paremetrizacion_puntos, $tag_paremetrizacion_categorias, $tag_paremetrizacion_cursos,
+            $tag_paremetrizacion_grupos);
 
             return $this->redirectToRoute('noticias');
-        }
 
+        }
         return $this->render('convivencia/noticias/noticiasForm.html.twig', array(
-            'cursos' => $cursos,
             'noticia' => $noticia,
-            'user' => $this->getUser(),
+            'form' => $form->createView(),
         ));
-    */
+        
     }
 }

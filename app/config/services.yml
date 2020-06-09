@@ -35,3 +35,8 @@ services:
     app.file.twig.extension:
         class: AppBundle\Twig\Extension\FileExtension
         tags: [ name: FileExtension ]
+    twig.extension:
+        class: AppBundle\Extensions\TwigExtensions
+        tags:
+            - { name: twig.extension }
+        

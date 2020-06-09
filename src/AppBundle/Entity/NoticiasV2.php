@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * NoticiasV2
  *
  * @ORM\Table(name="noticiasV2")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\NoticiasRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\NoticiasV2Repository")
  */
 class NoticiasV2
 {

@@ -569,6 +569,10 @@
     <service id="app.file.twig.extension" class="AppBundle\Twig\Extension\FileExtension" public="true" autowire="true" autoconfigure="true">
       <tag name="FileExtension"/>
     </service>
+    <service id="twig.extension" class="AppBundle\Extensions\TwigExtensions" public="true" autowire="true" autoconfigure="true">
+      <tag name="twig.extension"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="controller_name_converter" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser" public="false">
       <tag name="monolog.logger" channel="request"/>
       <argument type="service" id="kernel"/>
@@ -845,7 +849,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>iUtnsDzimiVfPhHfDb+A-E</argument>
+      <argument>TprcpDVSCyBYc6Z4jukh34</argument>
       <argument>/opt/lampp/htdocs/shikoba/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -855,7 +859,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>iUtnsDzimiVfPhHfDb+A-E</argument>
+      <argument>TprcpDVSCyBYc6Z4jukh34</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -1665,14 +1669,6 @@
       </call>
       <call method="addListener">
         <argument>kernel.request</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.command</argument>
         <argument type="collection">
           <argument type="service" id="debug.debug_handlers_listener"/>
           <argument>configure</argument>
@@ -2816,12 +2812,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5edcce65cfcca8.30586722</argument>
+      <argument>5ede68ee97c164.03513160</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5edcce65cfcca8.30586722</argument>
+      <argument>5ede68ee97c164.03513160</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -2928,6 +2924,9 @@
           <argument key="thousands_separator">,</argument>
         </argument>
       </argument>
+      <call method="addExtension">
+        <argument type="service" id="twig.extension"/>
+      </call>
       <call method="addExtension">
         <argument type="service" id="twig.extension.logout_url"/>
       </call>
@@ -4108,6 +4107,9 @@
     </service>
     <service id="instanceof.Symfony\Component\Form\FormTypeInterface.0.form.parteType" class="AppBundle\Form\ParteFormType" public="true" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.form.parteType" class="AppBundle\Form\ParteFormType" public="true" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Twig_ExtensionInterface.0.twig.extension" class="AppBundle\Extensions\TwigExtensions" public="true" autowire="true" abstract="true"/>
+    <service id="instanceof.Twig\Extension\ExtensionInterface.0.twig.extension" class="AppBundle\Extensions\TwigExtensions" public="true" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.twig.extension" class="AppBundle\Extensions\TwigExtensions" public="true" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="service_locator.sr6ctxe" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
@@ -4421,7 +4423,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>-Tymf4gGl3</argument>
       <argument>0</argument>
-      <argument>iUtnsDzimiVfPhHfDb+A-E</argument>
+      <argument>TprcpDVSCyBYc6Z4jukh34</argument>
       <argument>/opt/lampp/htdocs/shikoba/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4429,7 +4431,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>LCLWOgi3qQ</argument>
       <argument>0</argument>
-      <argument>iUtnsDzimiVfPhHfDb+A-E</argument>
+      <argument>TprcpDVSCyBYc6Z4jukh34</argument>
       <argument>/opt/lampp/htdocs/shikoba/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4437,7 +4439,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>Ab6y7tLqww</argument>
       <argument>0</argument>
-      <argument>iUtnsDzimiVfPhHfDb+A-E</argument>
+      <argument>TprcpDVSCyBYc6Z4jukh34</argument>
       <argument>/opt/lampp/htdocs/shikoba/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -4445,7 +4447,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false">
       <argument>LB4NbjV2fD</argument>
       <argument>0</argument>
-      <argument>iUtnsDzimiVfPhHfDb+A-E</argument>
+      <argument>TprcpDVSCyBYc6Z4jukh34</argument>
       <argument>/opt/lampp/htdocs/shikoba/var/cache/dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

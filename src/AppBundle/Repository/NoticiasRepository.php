@@ -93,4 +93,26 @@ class NoticiasRepository extends EntityRepository
 
         return $query->getResult();
     }
+
+    /**
+     * Funcion que devuelve true o false
+     *
+     * @return boolean
+     */
+    public function isPublished($id)
+    {
+        $banderaPubl = false;
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT publicaciones
+             FROM AppBundle\Entity\Publicaciones publicaciones
+             where publicaciones.idNoticia = :id'
+        );
+        $query->setParameter(':id', $id);
+
+        if (sizeof($query->getResult())>0) {
+            $banderaPubl = true;
+        }
+
+        return $banderaPubl;
+    }
 }

@@ -12,6 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Noticias_eventos
 {
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
     /**
      * @var int
      *

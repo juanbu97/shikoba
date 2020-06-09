@@ -334,6 +334,17 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
             not_publicacion:
 
+            // publicaciones_borrar
+            if (0 === strpos($pathinfo, '/publicaciones/borrarPublicacion') && preg_match('#^/publicaciones/borrarPublicacion/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_publicaciones_borrar;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'publicaciones_borrar')), array (  '_controller' => 'AppBundle\\Controller\\PublicacionesController::deletePublicacion',));
+            }
+            not_publicaciones_borrar:
+
         }
 
         elseif (0 === strpos($pathinfo, '/sanciones')) {
@@ -493,7 +504,18 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        elseif (0 === strpos($pathinfo, '/i')) {
+        // eventos
+        if (0 === strpos($pathinfo, '/eventosForm') && preg_match('#^/eventosForm/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                $allow = array_merge($allow, array('GET', 'POST'));
+                goto not_eventos;
+            }
+
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'eventos')), array (  '_controller' => 'AppBundle\\Controller\\Noticias_eventos_controllerController::crearEvento',));
+        }
+        not_eventos:
+
+        if (0 === strpos($pathinfo, '/i')) {
             // printParte
             if ('/imprimirParte' === $pathinfo) {
                 if (!in_array($canonicalMethod, array('GET', 'POST'))) {
