@@ -17,6 +17,7 @@ use AppBundle\Form\Noticias_eventosType;
 use AppBundle\Repository\CursosRepository;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Form\NoticiasV2Type;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -48,7 +49,7 @@ class NoticiasController extends Controller
         /** @var NoticiasRepository $repositoryNoticias */
         $repositoryNoticias = $em->getRepository('AppBundle:NoticiasV2');
 
-        $noticias = $repositoryNoticias->getNoticias();
+        $noticias = $repositoryNoticias->getNoticia();
 
         return $this->render('convivencia/noticias/noticias.html.twig', array(
             'noticias' => $noticias,
@@ -154,10 +155,11 @@ class NoticiasController extends Controller
             $tag_paremetrizacion_categorias = $form->get('tagParametrizacionCategorias')->getViewData();
             $tag_paremetrizacion_valores = $form->get('tagParametrizacionValores')->getViewData();
             $tag_paremetrizacion_puntos = $form->get('tagParametrizacionPuntos')->getViewData();
+            $updatedAt = new DateTime();
 
             $repositoryNoticias->updateNoticias($id, $titulo, $descripcion, $codigo_embebido, $tag_paremetrizacion_valores,
             $tag_paremetrizacion_puntos, $tag_paremetrizacion_categorias, $tag_paremetrizacion_cursos,
-            $tag_paremetrizacion_grupos);
+            $tag_paremetrizacion_grupos, $updatedAt);
 
             return $this->redirectToRoute('noticias');
 

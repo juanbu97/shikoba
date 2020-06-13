@@ -15,7 +15,7 @@ class NoticiasV2Repository extends \Doctrine\ORM\EntityRepository
      *
      * @return array
      */
-    public function getNoticias()
+    public function getNoticia()
     {
         $query = $this->getEntityManager()->createQuery(
             'SELECT noticias
@@ -62,7 +62,8 @@ class NoticiasV2Repository extends \Doctrine\ORM\EntityRepository
         $tag_parametrizacion_puntos,
         $tag_parametrizacion_categorias,
         $tag_parametrizacion_cursos,
-        $tag_parametrizacion_grupos
+        $tag_parametrizacion_grupos,
+        $updatedAt
     ) {
         $query = $this->getEntityManager()->createQuery('UPDATE AppBundle\Entity\NoticiasV2 n 
                 SET n.titulo= :titulo, 
@@ -72,7 +73,8 @@ class NoticiasV2Repository extends \Doctrine\ORM\EntityRepository
                 n.tagParametrizacionCursos=:tag_parametrizacion_cursos,
                 n.tagParametrizacionValores=:tag_parametrizacion_valores,
                 n.tagParametrizacionGrupos=:tag_parametrizacion_grupos,
-                n.tagParametrizacionCategorias=:tag_parametrizacion_categorias
+                n.tagParametrizacionCategorias=:tag_parametrizacion_categorias,
+                n.updatedAt = :updatedAt
 
                 where n.id= :id ');
         $query->setParameter(':id', $id);
@@ -84,6 +86,7 @@ class NoticiasV2Repository extends \Doctrine\ORM\EntityRepository
         $query->setParameter(':tag_parametrizacion_valores', $tag_parametrizacion_valores);
         $query->setParameter(':tag_parametrizacion_grupos', $tag_parametrizacion_grupos);
         $query->setParameter(':tag_parametrizacion_categorias', $tag_parametrizacion_categorias);
+        $query->setParameter(':updatedAt', $updatedAt);
 
 
         return $query->getResult();

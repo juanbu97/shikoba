@@ -432,53 +432,89 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
         }
         not_edit_diario:
 
-        if (0 === strpos($pathinfo, '/n')) {
-            if (0 === strpos($pathinfo, '/noticias')) {
-                // noticias
-                if ('/noticias' === $pathinfo) {
-                    if (!in_array($canonicalMethod, array('GET', 'POST'))) {
-                        $allow = array_merge($allow, array('GET', 'POST'));
-                        goto not_noticias;
-                    }
-
-                    return array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::showNoticias',  '_route' => 'noticias',);
+        if (0 === strpos($pathinfo, '/eventos')) {
+            // eventos
+            if ('/eventos' === $pathinfo) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_eventos;
                 }
-                not_noticias:
 
-                // nuevaNoticia
-                if ('/noticiasForm' === $pathinfo) {
-                    if (!in_array($canonicalMethod, array('GET', 'POST'))) {
-                        $allow = array_merge($allow, array('GET', 'POST'));
-                        goto not_nuevaNoticia;
-                    }
-
-                    return array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::nuevaNoticia',  '_route' => 'nuevaNoticia',);
-                }
-                not_nuevaNoticia:
-
-                // borrar_noticia
-                if (0 === strpos($pathinfo, '/noticias/borrarNoticia') && preg_match('#^/noticias/borrarNoticia/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                    if (!in_array($canonicalMethod, array('GET', 'POST'))) {
-                        $allow = array_merge($allow, array('GET', 'POST'));
-                        goto not_borrar_noticia;
-                    }
-
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_noticia')), array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::deleteNoticias',));
-                }
-                not_borrar_noticia:
-
-                // editNoticia
-                if (0 === strpos($pathinfo, '/noticias/editNoticia') && preg_match('#^/noticias/editNoticia/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-                    if (!in_array($canonicalMethod, array('GET', 'POST'))) {
-                        $allow = array_merge($allow, array('GET', 'POST'));
-                        goto not_editNoticia;
-                    }
-
-                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'editNoticia')), array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::editNoticia',));
-                }
-                not_editNoticia:
-
+                return array (  '_controller' => 'AppBundle\\Controller\\EventosController::listarEventos',  '_route' => 'eventos',);
             }
+            not_eventos:
+
+            // asociarEvento
+            if (0 === strpos($pathinfo, '/eventosForm') && preg_match('#^/eventosForm/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_asociarEvento;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'asociarEvento')), array (  '_controller' => 'AppBundle\\Controller\\Noticias_eventos_controllerController::crearEvento',));
+            }
+            not_asociarEvento:
+
+        }
+
+        // editEvento
+        if (0 === strpos($pathinfo, '/editEvento') && preg_match('#^/editEvento/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                $allow = array_merge($allow, array('GET', 'POST'));
+                goto not_editEvento;
+            }
+
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'editEvento')), array (  '_controller' => 'AppBundle\\Controller\\EventosController::editEvento',));
+        }
+        not_editEvento:
+
+        if (0 === strpos($pathinfo, '/borrar')) {
+            // borrarEvento
+            if (0 === strpos($pathinfo, '/borrarEvento') && preg_match('#^/borrarEvento/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_borrarEvento;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrarEvento')), array (  '_controller' => 'AppBundle\\Controller\\EventosController::borrarEventos',));
+            }
+            not_borrarEvento:
+
+            // borrar_parte
+            if (0 === strpos($pathinfo, '/borrarParte') && preg_match('#^/borrarParte/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ('GET' !== $canonicalMethod) {
+                    $allow[] = 'GET';
+                    goto not_borrar_parte;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_parte')), array (  '_controller' => 'AppBundle\\Controller\\PartesController::removeParte',));
+            }
+            not_borrar_parte:
+
+            // borrar_sancion
+            if (0 === strpos($pathinfo, '/borrarSancion') && preg_match('#^/borrarSancion/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if ('GET' !== $canonicalMethod) {
+                    $allow[] = 'GET';
+                    goto not_borrar_sancion;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_sancion')), array (  '_controller' => 'AppBundle\\Controller\\SancionController::removeSancion',));
+            }
+            not_borrar_sancion:
+
+        }
+
+        elseif (0 === strpos($pathinfo, '/nuev')) {
+            // nuevoEvento
+            if ('/nuevoEvento' === $pathinfo) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_nuevoEvento;
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\EventosController::crearEvento',  '_route' => 'nuevoEvento',);
+            }
+            not_nuevoEvento:
 
             // nuevoParte
             if ('/nuevoParte' === $pathinfo) {
@@ -504,18 +540,54 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
 
         }
 
-        // eventos
-        if (0 === strpos($pathinfo, '/eventosForm') && preg_match('#^/eventosForm/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-            if (!in_array($canonicalMethod, array('GET', 'POST'))) {
-                $allow = array_merge($allow, array('GET', 'POST'));
-                goto not_eventos;
+        elseif (0 === strpos($pathinfo, '/noticias')) {
+            // noticias
+            if ('/noticias' === $pathinfo) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_noticias;
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::showNoticias',  '_route' => 'noticias',);
             }
+            not_noticias:
 
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'eventos')), array (  '_controller' => 'AppBundle\\Controller\\Noticias_eventos_controllerController::crearEvento',));
+            // nuevaNoticia
+            if ('/noticiasForm' === $pathinfo) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_nuevaNoticia;
+                }
+
+                return array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::nuevaNoticia',  '_route' => 'nuevaNoticia',);
+            }
+            not_nuevaNoticia:
+
+            // borrar_noticia
+            if (0 === strpos($pathinfo, '/noticias/borrarNoticia') && preg_match('#^/noticias/borrarNoticia/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_borrar_noticia;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_noticia')), array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::deleteNoticias',));
+            }
+            not_borrar_noticia:
+
+            // editNoticia
+            if (0 === strpos($pathinfo, '/noticias/editNoticia') && preg_match('#^/noticias/editNoticia/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+                if (!in_array($canonicalMethod, array('GET', 'POST'))) {
+                    $allow = array_merge($allow, array('GET', 'POST'));
+                    goto not_editNoticia;
+                }
+
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'editNoticia')), array (  '_controller' => 'AppBundle\\Controller\\NoticiasController::editNoticia',));
+            }
+            not_editNoticia:
+
         }
-        not_eventos:
 
-        if (0 === strpos($pathinfo, '/i')) {
+        elseif (0 === strpos($pathinfo, '/i')) {
             // printParte
             if ('/imprimirParte' === $pathinfo) {
                 if (!in_array($canonicalMethod, array('GET', 'POST'))) {
@@ -551,28 +623,6 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             }
 
         }
-
-        // borrar_parte
-        if (0 === strpos($pathinfo, '/borrarParte') && preg_match('#^/borrarParte/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-            if ('GET' !== $canonicalMethod) {
-                $allow[] = 'GET';
-                goto not_borrar_parte;
-            }
-
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_parte')), array (  '_controller' => 'AppBundle\\Controller\\PartesController::removeParte',));
-        }
-        not_borrar_parte:
-
-        // borrar_sancion
-        if (0 === strpos($pathinfo, '/borrarSancion') && preg_match('#^/borrarSancion/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
-            if ('GET' !== $canonicalMethod) {
-                $allow[] = 'GET';
-                goto not_borrar_sancion;
-            }
-
-            return $this->mergeDefaults(array_replace($matches, array('_route' => 'borrar_sancion')), array (  '_controller' => 'AppBundle\\Controller\\SancionController::removeSancion',));
-        }
-        not_borrar_sancion:
 
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }

@@ -15,7 +15,7 @@ class Noticias_eventos_controllerController extends Controller
     /**
      * Asocia un evento a una noticia
      * 
-     * @Route("/eventosForm/{id}", name="eventos")
+     * @Route("/eventosForm/{id}", name="asociarEvento")
      * @Method({"GET", "POST"})
      */
     public function crearEvento(Request $request, NoticiasV2 $noticia)
